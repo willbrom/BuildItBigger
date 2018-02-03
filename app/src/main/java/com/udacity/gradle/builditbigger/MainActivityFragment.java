@@ -22,6 +22,7 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
+        String flavor = getContext().getPackageName();
 
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -31,6 +32,12 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        if (flavor.equals("com.udacity.gradle.builditbigger.free"))
+            mAdView.setVisibility(View.VISIBLE);
+        else if (flavor.equals("com.udacity.gradle.builditbigger.paid"))
+            mAdView.setVisibility(View.INVISIBLE);
+
         return root;
     }
 }
